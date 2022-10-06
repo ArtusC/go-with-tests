@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-// Code to run "hello world" using constant and function
+// https://quii.gitbook.io/learn-go-with-tests/go-fundamentals/hello-world
 
 const english = "English"
 const englishHelloPrefix = "Hello, super world and "
@@ -11,28 +11,32 @@ const portugues = "Portugues"
 const portuguesHelloPrefix = "Olá, super mundo e "
 
 func Hello(name, language string) string{
-	if language == english {
-		if name != "" {
-			return englishHelloPrefix + name + "!"
-		} else {
-			return englishHelloPrefix + "anything!"
-		}
+	if name == "" {
+		return englishHelloPrefix + "anything!"
 	}
 
-	if language == portugues {
-		if name != "" {
-			return portuguesHelloPrefix + name + "!"
-		} else {
-			return portuguesHelloPrefix + "ninguém!"
-		}
-	}
-
-	return ""
+	return greetingPrefix(language) + name + "!"
 	
+}
+
+func greetingPrefix(language string) (prefix string) {
+	switch language{
+	case english:
+		prefix = englishHelloPrefix
+	case portugues:
+		prefix = portuguesHelloPrefix
+	default:
+		prefix = englishHelloPrefix
+	}
+	return
 }
 
 func main() {
 	fmt.Println(Hello("Artus", "Portugues"))
+	fmt.Println(Hello("Artus", "English"))
+	fmt.Println(Hello("", "Portugues"))
+	fmt.Println(Hello("", "English"))
+	fmt.Println(Hello("", ""))
 }
 
 
