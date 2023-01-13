@@ -1,10 +1,17 @@
 package dependency_injection
 
 import (
-	"bytes"
 	"fmt"
+	"io"
+	"net/http"
 )
 
-func Greet(writer *bytes.Buffer, name string) {
+// https://quii.gitbook.io/learn-go-with-tests/go-fundamentals/dependency-injection
+
+func Greet(writer io.Writer, name string) {
 	fmt.Fprintf(writer, "Hello, %s", name)
+}
+
+func MyGreeterHandler(w http.ResponseWriter, r *http.Request) {
+	Greet(w, "world")
 }
