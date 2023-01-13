@@ -1,4 +1,4 @@
-package main
+package hello
 
 import "fmt"
 
@@ -10,17 +10,17 @@ const englishHelloPrefix = "Hello, super world and "
 const portugues = "Portugues"
 const portuguesHelloPrefix = "Olá, super mundo e "
 
-func Hello(name, language string) string{
+func Hello(name, language string) string {
 	if name == "" {
 		return englishHelloPrefix + "anything!"
 	}
 
 	return greetingPrefix(language) + name + "!"
-	
+
 }
 
 func greetingPrefix(language string) (prefix string) {
-	switch language{
+	switch language {
 	case english:
 		prefix = englishHelloPrefix
 	case portugues:
@@ -38,5 +38,3 @@ func main() {
 	fmt.Println(Hello("", "English"))
 	fmt.Println(Hello("", ""))
 }
-
-
