@@ -15,3 +15,5 @@ func Greet(writer io.Writer, name string) {
 func MyGreeterHandler(w http.ResponseWriter, r *http.Request) {
 	Greet(w, "world")
 }
+
+// To run and test the greeter handler working in the localhost, run in the terminal: `go run main.go`
