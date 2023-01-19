@@ -6,17 +6,22 @@ import (
 	"time"
 )
 
+// https://quii.gitbook.io/learn-go-with-tests/go-fundamentals/mocking
+
 type Sleeper interface {
 	Sleep()
 }
 
-type DefaultSleeper struct{}
+type ConfigurableSleeper struct {
+	Duration        time.Duration
+	SleeperDuration func(time.Duration)
+}
 
 const finalWord = "Go!"
 const countDownStart = 3
 
-func (d *DefaultSleeper) Sleep() {
-	time.Sleep(1 * time.Second)
+func (c *ConfigurableSleeper) Sleep() {
+	c.SleeperDuration(c.Duration)
 }
 
 func Countdown(out io.Writer, sleeper Sleeper) {
