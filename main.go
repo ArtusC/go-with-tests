@@ -1,12 +1,18 @@
 package main
 
 import (
-	"log"
-	"net/http"
+	"os"
+	"time"
 
-	di "github.com/ArtusC/go-with-tests/dependency-injection"
+	// di "github.com/ArtusC/go-with-tests/dependency-injection"
+	mo "github.com/ArtusC/go-with-tests/mocking"
 )
 
 func main() {
-	log.Fatal(http.ListenAndServe(":5001", http.HandlerFunc(di.MyGreeterHandler)))
+	// Chapter dependency_injection
+	// log.Fatal(http.ListenAndServe(":5001", http.HandlerFunc(di.MyGreeterHandler)))
+
+	// Chapter mocking
+	sleeper := &mo.ConfigurableSleeper{Duration: 1 * time.Second, SleeperDuration: time.Sleep}
+	mo.Countdown(os.Stdout, sleeper)
 }
