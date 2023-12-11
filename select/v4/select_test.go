@@ -1,10 +1,15 @@
-package racer
+//go:build unit
+// +build unit
+
+package racer_test
 
 import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
 	"time"
+
+	ra "github.com/ArtusC/go-with-tests/select/v4"
 )
 
 func TestRacer(t *testing.T) {
@@ -20,7 +25,7 @@ func TestRacer(t *testing.T) {
 		fasturl := fastServer.URL
 
 		want := fasturl
-		got, err := Racer(slowUrl, fasturl)
+		got, err := ra.Racer(slowUrl, fasturl)
 
 		if err != nil {
 			t.Fatalf("did not expect an error but got one %v", err)
@@ -38,7 +43,7 @@ func TestRacer(t *testing.T) {
 
 		defer server.Close()
 
-		_, err := ConfigurableRacer(server.URL, server.URL, timeOutServer)
+		_, err := ra.ConfigurableRacer(server.URL, server.URL, timeOutServer)
 
 		if err == nil {
 			t.Error("expected an error but didn't get one")

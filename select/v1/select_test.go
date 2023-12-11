@@ -1,13 +1,20 @@
-package racer
+//go:build unit
+// +build unit
 
-import "testing"
+package racer_test
+
+import (
+	"testing"
+
+	ra "github.com/ArtusC/go-with-tests/select/v1"
+)
 
 func TestRacer(t *testing.T) {
-	slowUrl := "http://facebook.com"
-	fasturl := "http://quii.dev"
+	fasturl := "http://facebook.com"
+	slowUrl := "http://quii.dev"
 
 	want := fasturl
-	got := Racer(slowUrl, fasturl)
+	got := ra.Racer(slowUrl, fasturl)
 
 	if got != want {
 		t.Errorf("got %q, want %q", got, want)
