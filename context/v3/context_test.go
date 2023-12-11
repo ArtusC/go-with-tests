@@ -1,4 +1,7 @@
-package main
+//go:build unit
+// +build unit
+
+package context_test
 
 import (
 	"context"
@@ -9,6 +12,8 @@ import (
 	"net/http/httptest"
 	"testing"
 	"time"
+
+	cp "github.com/ArtusC/go-with-tests/context/v3"
 )
 
 type SpyStore struct {
@@ -70,14 +75,14 @@ func TestServer(t *testing.T) {
 	t.Run("test if server is work returning data", func(t *testing.T) {
 		data := "hello world"
 		store := &SpyStore{response: data, t: t}
-		svr := Server(store)
+		svr := cp.Server(store)
 
 		request := httptest.NewRequest("GET", "/", nil)
 		response := httptest.NewRecorder()
 
 		svr.ServeHTTP(response, request)
 
-		if response.Body.String() != data {
+		if response.Body.String() == data {
 			t.Errorf("got %s, want %s", response.Body.String(), data)
 		}
 	})
@@ -85,7 +90,7 @@ func TestServer(t *testing.T) {
 	t.Run("test to check if the request is cancelled when the work is cancelled", func(t *testing.T) {
 		data := "hello world"
 		store := &SpyStore{response: data, t: t}
-		svr := Server(store)
+		svr := cp.Server(store)
 
 		request := httptest.NewRequest("GET", "/", nil)
 
@@ -108,4 +113,31 @@ func TestServer(t *testing.T) {
 			t.Error("a response should not been written")
 		}
 	})
+}
+
+func TestServer_2(t *testing.T) {
+	data := "hello world"
+	store := &SpyStore{response: data, t: t}
+	svr := cp.Server(store)
+
+	request := httptest.NewRequest("GET", "/", nil)
+
+	/*
+		What we do is derive a new cancellingCtx from our request which returns us a cancel function.
+		We then schedule that function to be called in 5 milliseconds by using time.AfterFunc.
+		Finally we use this new context in our request by calling request.WithContext.
+	*/
+	cancellingCtx, cancel := context.WithCancel(request.Context())
+	time.AfterFunc(5*time.Millisecond, cancel)
+	request = request.WithContext(cancellingCtx)
+
+	response := &SpyResponseWriter{}
+
+	svr.ServeHTTP(response, request)
+
+	fmt.Println(response)
+
+	if response.written {
+		t.Error("a response should not been written")
+	}
 }

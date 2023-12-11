@@ -1,10 +1,15 @@
-package main
+//go:build unit
+// +build unit
+
+package context_test
 
 import (
 	"context"
 	"net/http/httptest"
 	"testing"
 	"time"
+
+	cp "github.com/ArtusC/go-with-tests/context/v1"
 )
 
 type SpyStore struct {
@@ -25,7 +30,7 @@ func TestServer(t *testing.T) {
 	t.Run("test if server is working", func(t *testing.T) {
 		data := "hello world"
 
-		svr := Server(&SpyStore{response: data})
+		svr := cp.Server(&SpyStore{response: data})
 
 		request := httptest.NewRequest("GET", "/", nil)
 		response := httptest.NewRecorder()
@@ -41,7 +46,7 @@ func TestServer(t *testing.T) {
 
 		data := "hello world"
 		store := &SpyStore{response: data}
-		svr := Server(store)
+		svr := cp.Server(store)
 
 		request := httptest.NewRequest("GET", "/", nil)
 
