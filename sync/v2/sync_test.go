@@ -1,13 +1,18 @@
-package sync
+//go:build unit
+// +build unit
+
+package sync_test
 
 import (
 	"sync"
 	"testing"
+
+	sy "github.com/ArtusC/go-with-tests/sync/v2"
 )
 
 func TestCounter(t *testing.T) {
 	t.Run("incrementing the counter 3 time leaves it at 3", func(t *testing.T) {
-		counter := NewCounter()
+		counter := sy.NewCounter()
 		counter.Increment()
 		counter.Increment()
 		counter.Increment()
@@ -19,7 +24,7 @@ func TestCounter(t *testing.T) {
 	t.Run("it runs safely concurrently", func(t *testing.T) {
 
 		wantedCount := 1000
-		counter := NewCounter()
+		counter := sy.NewCounter()
 
 		var wg sync.WaitGroup
 		wg.Add(wantedCount)
@@ -42,7 +47,7 @@ func TestCounter(t *testing.T) {
 	})
 }
 
-func assertCounter(t testing.TB, got *Counter, want int) {
+func assertCounter(t testing.TB, got *sy.Counter, want int) {
 	t.Helper()
 	if got.Value() != want {
 		t.Errorf("got %d, but expected %d", got.Value(), want)
