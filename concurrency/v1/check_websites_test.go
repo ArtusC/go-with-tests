@@ -1,8 +1,13 @@
-package concurrency
+//go:build unit
+// +build unit
+
+package concurrency_test
 
 import (
 	"reflect"
 	"testing"
+
+	co "github.com/ArtusC/go-with-tests/concurrency/v1"
 )
 
 func mockWebsiteChecker(url string) bool {
@@ -25,7 +30,7 @@ func TestWebsiteChecker(t *testing.T) {
 		"waat://furhurterwe.geds":    false,
 	}
 
-	got := CheckWebsites(mockWebsiteChecker, websites)
+	got := co.CheckWebsites(mockWebsiteChecker, websites)
 
 	if !reflect.DeepEqual(want, got) {
 		t.Fatalf("wanted %v, got %v", want, got)
