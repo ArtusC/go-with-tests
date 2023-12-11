@@ -82,7 +82,7 @@ func TestServer(t *testing.T) {
 
 		svr.ServeHTTP(response, request)
 
-		if response.Body.String() == data {
+		if response.Body.String() != data {
 			t.Errorf("got %s, want %s", response.Body.String(), data)
 		}
 	})
@@ -113,31 +113,4 @@ func TestServer(t *testing.T) {
 			t.Error("a response should not been written")
 		}
 	})
-}
-
-func TestServer_2(t *testing.T) {
-	data := "hello world"
-	store := &SpyStore{response: data, t: t}
-	svr := cp.Server(store)
-
-	request := httptest.NewRequest("GET", "/", nil)
-
-	/*
-		What we do is derive a new cancellingCtx from our request which returns us a cancel function.
-		We then schedule that function to be called in 5 milliseconds by using time.AfterFunc.
-		Finally we use this new context in our request by calling request.WithContext.
-	*/
-	cancellingCtx, cancel := context.WithCancel(request.Context())
-	time.AfterFunc(5*time.Millisecond, cancel)
-	request = request.WithContext(cancellingCtx)
-
-	response := &SpyResponseWriter{}
-
-	svr.ServeHTTP(response, request)
-
-	fmt.Println(response)
-
-	if response.written {
-		t.Error("a response should not been written")
-	}
 }
