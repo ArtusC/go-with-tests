@@ -5,7 +5,7 @@ import (
 	"reflect"
 )
 
-func walk(x interface{}, fn func(input string)) {
+func Walk(x interface{}, fn func(input string)) {
 	v := reflect.ValueOf(x)
 
 	if v.Kind() == reflect.Pointer {
@@ -23,7 +23,7 @@ func walk(x interface{}, fn func(input string)) {
 		case reflect.Float32, reflect.Float64:
 			fn(fmt.Sprintf("%.2f", field.Float()))
 		case reflect.Struct:
-			walk(field.Interface(), fn)
+			Walk(field.Interface(), fn)
 		}
 	}
 }

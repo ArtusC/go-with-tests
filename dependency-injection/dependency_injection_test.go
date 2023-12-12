@@ -1,8 +1,13 @@
-package dependency_injection
+//go:build unit
+// +build unit
+
+package dependency_injection_test
 
 import (
 	"bytes"
 	"testing"
+
+	di "github.com/ArtusC/go-with-tests/dependency-injection"
 )
 
 func assertCorrectMessage(t testing.TB, got, want string) {
@@ -16,7 +21,7 @@ func TestHello(t *testing.T) {
 	t.Run("test correct message", func(t *testing.T) {
 		buffer := bytes.Buffer{}
 
-		Greet(&buffer, "Chris")
+		di.Greet(&buffer, "Chris")
 
 		got := buffer.String()
 		want := "Hello, Chris"

@@ -1,8 +1,13 @@
-package reflection
+//go:build unit
+// +build unit
+
+package reflection_test
 
 import (
 	"reflect"
 	"testing"
+
+	re "github.com/ArtusC/go-with-tests/reflection/v3"
 )
 
 func TestWalk(t *testing.T) {
@@ -43,7 +48,7 @@ func TestWalk(t *testing.T) {
 	for _, test := range cases {
 		t.Run(test.CaseName, func(t *testing.T) {
 			var got []string
-			walk(test.Input, func(input string) {
+			re.Walk(test.Input, func(input string) {
 				got = append(got, input)
 			})
 

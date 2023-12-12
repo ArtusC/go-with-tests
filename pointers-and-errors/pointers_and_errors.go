@@ -10,26 +10,26 @@ import (
 type Bitcoin int
 
 type Wallet struct {
-	balance Bitcoin
+	Balance Bitcoin
 }
 
 var ErrorInsufficientFounds = errors.New("cannot withdraw, insufficent founds in your account")
 
 func (w *Wallet) Deposit(amount Bitcoin) {
-	w.balance += amount
+	w.Balance += amount
 }
 
-func (w *Wallet) Balance() Bitcoin {
-	return w.balance
+func (w *Wallet) BalanceMethod() Bitcoin {
+	return w.Balance
 }
 
 func (w *Wallet) Withdraw(amount Bitcoin) error {
 
-	if amount > w.balance {
+	if amount > w.Balance {
 		return ErrorInsufficientFounds
 	}
 
-	w.balance -= amount
+	w.Balance -= amount
 	return nil
 }
 

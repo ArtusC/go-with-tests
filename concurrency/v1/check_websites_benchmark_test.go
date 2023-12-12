@@ -10,6 +10,7 @@ func slowStubWebSiteChecker(_ string) bool {
 	return true
 }
 
+// To run into terminal just run: go test -bench=.
 func BenchmarkCheckWebsites(b *testing.B) {
 	urls := make([]string, 100)
 

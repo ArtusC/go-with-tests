@@ -1,7 +1,12 @@
-package reflection
+//go:build unit
+// +build unit
+
+package reflection_test
 
 import (
 	"testing"
+
+	re "github.com/ArtusC/go-with-tests/reflection/v0"
 )
 
 func TestWalk(t *testing.T) {
@@ -13,7 +18,7 @@ func TestWalk(t *testing.T) {
 		Name string
 	}{expected}
 
-	walk(x, func(input string) {
+	re.Walk(x, func(input string) {
 		got = append(got, input)
 	})
 

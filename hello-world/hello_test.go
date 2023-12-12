@@ -1,6 +1,13 @@
-package hello
+//go:build unit
+// +build unit
 
-import "testing"
+package hello_test
+
+import (
+	"testing"
+
+	hw "github.com/ArtusC/go-with-tests/hello-world"
+)
 
 func assertCorrectMessage(t testing.TB, got, want string) {
 	t.Helper()
@@ -11,28 +18,28 @@ func assertCorrectMessage(t testing.TB, got, want string) {
 
 func TestHello(t *testing.T) {
 	t.Run("saying hello to people in English", func(t *testing.T) {
-		got := Hello("Artus", "English")
+		got := hw.Hello("Artus", "English")
 		want := "Hello, super world and Artus!"
 		assertCorrectMessage(t, got, want)
 
 	})
 	t.Run("saying hello to people in Portugues", func(t *testing.T) {
-		got := Hello("Artus", "Portugues")
+		got := hw.Hello("Artus", "Portugues")
 		want := "Olá, super mundo e Artus!"
 		assertCorrectMessage(t, got, want)
 	})
 	t.Run("say 'Hello, world and anything!' when an empty string is supplied in English", func(t *testing.T) {
-		got := Hello("", "English")
+		got := hw.Hello("", "English")
 		want := "Hello, super world and anything!"
 		assertCorrectMessage(t, got, want)
 	})
 	t.Run("say 'Hello, world and anything!' when an empty string is supplied in Portugues", func(t *testing.T) {
-		got := Hello("", "Portugues")
+		got := hw.Hello("", "Portugues")
 		want := "Hello, super world and anything!"
 		assertCorrectMessage(t, got, want)
 	})
 	t.Run("say 'Hello, world and anything!' when name and language are supplied", func(t *testing.T) {
-		got := Hello("", "")
+		got := hw.Hello("", "")
 		want := "Hello, super world and anything!"
 		assertCorrectMessage(t, got, want)
 	})

@@ -1,4 +1,7 @@
-package mocking
+//go:build unit
+// +build unit
+
+package mocking_test
 
 import (
 	"bytes"
@@ -6,6 +9,8 @@ import (
 	"reflect"
 	"testing"
 	"time"
+
+	mock "github.com/ArtusC/go-with-tests/mocking"
 )
 
 const write = "write"
@@ -37,7 +42,7 @@ func TestCountDown(t *testing.T) {
 	t.Run("prints 3 to Go!", func(t *testing.T) {
 		buffer := &bytes.Buffer{}
 		spySleepPrinter := &SpyCountdownOperations{}
-		Countdown(buffer, spySleepPrinter)
+		mock.Countdown(buffer, spySleepPrinter)
 
 		got := buffer.String()
 		want := `3
@@ -52,7 +57,7 @@ Go!`
 
 	t.Run("sleep before every print", func(t *testing.T) {
 		spySleepPrinter := &SpyCountdownOperations{}
-		Countdown(spySleepPrinter, spySleepPrinter)
+		mock.Countdown(spySleepPrinter, spySleepPrinter)
 		fmt.Println("spySleepPrinter = ", spySleepPrinter)
 
 		want := []string{
@@ -77,7 +82,7 @@ func TestConfigurableSleep(t *testing.T) {
 		sleepTime := (5 * time.Second)
 
 		spyTime := &SpyTime{}
-		sleeper := ConfigurableSleeper{sleepTime, spyTime.Sleep}
+		sleeper := mock.ConfigurableSleeper{sleepTime, spyTime.Sleep}
 		sleeper.Sleep()
 
 		if spyTime.durationSlept != sleepTime {
