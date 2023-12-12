@@ -1,11 +1,16 @@
-package iteration
+//go:build unit
+// +build unit
+
+package iteration_test
 
 import (
 	"testing"
+
+	it "github.com/ArtusC/go-with-tests/iteration"
 )
 
 func TestRepeat(t *testing.T) {
-	repeated := Repeat("a")
+	repeated := it.Repeat("a")
 	expected := "aaaaa"
 
 	if repeated != expected {
@@ -16,6 +21,6 @@ func TestRepeat(t *testing.T) {
 
 func BenchmarkRepeat(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Repeat("a")
+		it.Repeat("a")
 	}
 }
