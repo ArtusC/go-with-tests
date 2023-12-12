@@ -66,6 +66,5 @@ func TestServer(t *testing.T) {
 		if !store.cancelled {
 			t.Error("request was not cancelled")
 		}
-
 	})
 }
