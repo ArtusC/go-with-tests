@@ -1,10 +1,17 @@
-package structsmethodsinterfaces
+//go:build unit
+// +build unit
 
-import "testing"
+package structsmethodsinterfaces_test
+
+import (
+	"testing"
+
+	smi "github.com/ArtusC/go-with-tests/structs-methods-interfaces"
+)
 
 func TestPerimeter(t *testing.T) {
-	rectangle := Rectangle{10.0, 10.0}
-	got := Perimeter(rectangle)
+	rectangle := smi.Rectangle{10.0, 10.0}
+	got := smi.Perimeter(rectangle)
 	want := 40.0
 
 	if got != want {
@@ -15,12 +22,12 @@ func TestPerimeter(t *testing.T) {
 func TestArea(t *testing.T) {
 	areaTests := []struct {
 		name    string
-		shape   Shape
+		shape   smi.Shape
 		hasArea float64
 	}{
-		{name: "Rectangle", shape: Rectangle{Width: 12, Height: 6}, hasArea: 72.0},
-		{name: "Circle", shape: Circle{Radius: 10}, hasArea: 314.1592653589793},
-		{name: "Triangle", shape: Triangle{Base: 12, Height: 6}, hasArea: 36.0},
+		{name: "Rectangle", shape: smi.Rectangle{Width: 12, Height: 6}, hasArea: 72.0},
+		{name: "Circle", shape: smi.Circle{Radius: 10}, hasArea: 314.1592653589793},
+		{name: "Triangle", shape: smi.Triangle{Base: 12, Height: 6}, hasArea: 36.0},
 	}
 
 	for _, tt := range areaTests {
