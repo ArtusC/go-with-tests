@@ -1,9 +1,16 @@
-package dictionary
+//go:build unit
+// +build unit
 
-import "testing"
+package dictionary_test
+
+import (
+	"testing"
+
+	mp "github.com/ArtusC/go-with-tests/maps"
+)
 
 func TestSearch(t *testing.T) {
-	dictionary := Dictionary{"test": "this is just a test"}
+	dictionary := mp.Dictionary{"test": "this is just a test"}
 
 	t.Run("know word", func(t *testing.T) {
 		got, _ := dictionary.Search("test")
@@ -15,26 +22,26 @@ func TestSearch(t *testing.T) {
 	t.Run("unknow word", func(t *testing.T) {
 		_, got := dictionary.Search("unknow")
 
-		assertError(t, got, ErrorNotFound)
+		assertError(t, got, mp.ErrorNotFound)
 	})
 
 }
 
 func TestAdd(t *testing.T) {
 	t.Run("new word", func(t *testing.T) {
-		dictionary := Dictionary{}
+		dictionary := mp.Dictionary{}
 		word := "test"
 		definition := "just a test"
 
 		err := dictionary.Update(word, definition)
 
-		assertError(t, err, ErrWordDoesNotExists)
+		assertError(t, err, mp.ErrWordDoesNotExists)
 	})
 
 	t.Run("existing word", func(t *testing.T) {
 		word := "test"
 		definition := "just a test"
-		dictionary := Dictionary{word: definition}
+		dictionary := mp.Dictionary{word: definition}
 
 		err := dictionary.Update(word, definition)
 
@@ -46,19 +53,19 @@ func TestAdd(t *testing.T) {
 
 func TestUpdate(t *testing.T) {
 	t.Run("new word", func(t *testing.T) {
-		dictionary := Dictionary{}
+		dictionary := mp.Dictionary{}
 		word := "test"
 		definition := "just a test"
 
 		err := dictionary.Update(word, definition)
 
-		assertError(t, err, ErrWordDoesNotExists)
+		assertError(t, err, mp.ErrWordDoesNotExists)
 	})
 
 	t.Run("existing word", func(t *testing.T) {
 		word := "test"
 		definition := "just a test"
-		dictionary := Dictionary{word: definition}
+		dictionary := mp.Dictionary{word: definition}
 
 		err := dictionary.Add(word, definition)
 
@@ -69,12 +76,12 @@ func TestUpdate(t *testing.T) {
 
 func TestDelete(t *testing.T) {
 	t.Run("new word", func(t *testing.T) {
-		dictionary := Dictionary{}
+		dictionary := mp.Dictionary{}
 		word := "test"
 		dictionary.Delete(word)
 
 		_, err := dictionary.Search(word)
-		if err != ErrorNotFound {
+		if err != mp.ErrorNotFound {
 			t.Errorf("Expected %q to be deleted", word)
 		}
 	})
@@ -82,12 +89,12 @@ func TestDelete(t *testing.T) {
 	t.Run("existing word", func(t *testing.T) {
 		word := "test"
 		definition := "just a test"
-		dictionary := Dictionary{word: definition}
+		dictionary := mp.Dictionary{word: definition}
 
 		dictionary.Delete(word)
 
 		_, err := dictionary.Search(word)
-		if err != ErrorNotFound {
+		if err != mp.ErrorNotFound {
 			t.Errorf("Expected %q to be deleted", word)
 		}
 	})
@@ -109,7 +116,7 @@ func assertError(t testing.TB, got, want error) {
 	}
 }
 
-func assertDefinition(t testing.TB, dictionary Dictionary, word, definition string) {
+func assertDefinition(t testing.TB, dictionary mp.Dictionary, word, definition string) {
 	t.Helper()
 
 	got, err := dictionary.Search(word)
