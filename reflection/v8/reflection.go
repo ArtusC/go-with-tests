@@ -5,12 +5,12 @@ import (
 	"reflect"
 )
 
-func walk(x interface{}, fn func(input string)) {
+func Walk(x interface{}, fn func(input string)) {
 
 	val := extractValue(x)
 
-	walkValue := func(v reflect.Value) {
-		walk(v.Interface(), fn)
+	WalkValue := func(v reflect.Value) {
+		Walk(v.Interface(), fn)
 	}
 
 	switch val.Kind() {
@@ -22,19 +22,19 @@ func walk(x interface{}, fn func(input string)) {
 		fn(fmt.Sprintf("%.2f", val.Float()))
 	case reflect.Struct:
 		for i := 0; i < val.NumField(); i++ {
-			walkValue(val.Field(i))
+			WalkValue(val.Field(i))
 		}
 	case reflect.Slice, reflect.Array:
 		for i := 0; i < val.Len(); i++ {
-			walkValue(val.Index(i))
+			WalkValue(val.Index(i))
 		}
 	case reflect.Map:
 		for _, key := range val.MapKeys() {
-			walkValue(val.MapIndex(key))
+			WalkValue(val.MapIndex(key))
 		}
 	case reflect.Chan:
 		for v, ok := val.Recv(); ok; v, ok = val.Recv() {
-			walkValue(v)
+			WalkValue(v)
 		}
 	}
 }

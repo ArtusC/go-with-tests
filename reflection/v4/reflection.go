@@ -2,7 +2,7 @@ package reflection
 
 import "reflect"
 
-func walk(x interface{}, fn func(input string)) {
+func Walk(x interface{}, fn func(input string)) {
 	v := reflect.ValueOf(x)
 
 	for i := 0; i < v.NumField(); i++ {
@@ -12,7 +12,7 @@ func walk(x interface{}, fn func(input string)) {
 			fn(field.String())
 		}
 		if field.Kind() == reflect.Struct {
-			walk(field.Interface(), fn)
+			Walk(field.Interface(), fn)
 		}
 	}
 }
