@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"testing"
 
-	re "github.com/ArtusC/go-with-tests/reflection/v1"
+	re "github.com/ArtusC/go-with-tests/reflection/v2"
 )
 
 func TestWalk(t *testing.T) {

@@ -7,7 +7,7 @@ import (
 	"sync"
 	"testing"
 
-	sy "github.com/ArtusC/go-with-tests/sync/v1"
+	sy "github.com/ArtusC/go-with-tests/sync/v2"
 )
 
 func TestCounter(t *testing.T) {

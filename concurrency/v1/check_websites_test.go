@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"testing"
 
-	co "github.com/ArtusC/go-with-tests/concurrency/v1"
+	co "github.com/ArtusC/go-with-tests/concurrency/v2"
 )
 
 func mockWebsiteChecker(url string) bool {

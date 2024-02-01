@@ -8,8 +8,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	srv "github.com/ArtusC/go-with-tests/application/http-server-version/v1/server"
-	assert "github.com/ArtusC/go-with-tests/application/http-server-version/v1/test_helper"
+	srv "github.com/ArtusC/go-with-tests/application/http-server-version/v2/server"
+	assert "github.com/ArtusC/go-with-tests/application/http-server-version/v2/test_helper"
 )
 
 func TestGETPlayers(t *testing.T) {
