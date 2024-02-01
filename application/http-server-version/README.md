@@ -25,6 +25,9 @@ https://quii.gitbook.io/learn-go-with-tests/build-an-application/http-server
 
 # Running:
 
+* On the **http-server-version/v4** folder, build the application and run it:
+	`go build . && ./http-server-version`
+
 * Run this a few times, change the player names if you like:
 
 	`curl -X POST http://localhost:5000/players/<SOME_NAME>`

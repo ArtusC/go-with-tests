@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	cp "github.com/ArtusC/go-with-tests/context/v1"
+	cp "github.com/ArtusC/go-with-tests/context/v2"
 )
 
 type SpyStore struct {

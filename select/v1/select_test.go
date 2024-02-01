@@ -6,7 +6,7 @@ package racer_test
 import (
 	"testing"
 
-	ra "github.com/ArtusC/go-with-tests/select/v1"
+	ra "github.com/ArtusC/go-with-tests/select/v2"
 )
 
 func TestRacer(t *testing.T) {
